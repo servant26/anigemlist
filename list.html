@@ -35,7 +35,7 @@ body{
   padding-top: var(--nav-h);
 }
 
-/* ================= NAVBAR ================= */
+/* ================= NAVBAR DENGAN HYPERLINK DAN GARIS BAWAH ================= */
 nav{
   position:fixed;
   top:0;
@@ -69,14 +69,46 @@ nav ul li{
   transition:.3s;
   font-size: 16px;
   padding: 6px 0;
+  position: relative;
 }
 
-nav ul li.active{
-  color:var(--primary-color);
+/* HYPERLINK DI DALAM LI */
+nav ul li a {
+  color: inherit;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
-nav ul li:hover{
-  color:var(--primary-color);
+/* GARIS BAWAH UNTUK ACTIVE MENU */
+nav ul li.active {
+  color: var(--primary-color);
+}
+
+nav ul li.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--primary-color);
+  border-radius: 3px;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from { width: 0; opacity: 0; }
+  to { width: 100%; opacity: 1; }
+}
+
+nav ul li:hover {
+  color: var(--primary-color);
+}
+
+nav ul li:hover::after {
+  color: var(--primary-color);
 }
 
 .hamburger {
@@ -657,6 +689,7 @@ nav ul li:hover{
   position: relative;
 }
 
+/* HOVER EFFECT - BORDER SOFT PURPLE (BUKAN ZOOM) */
 .card-item:hover {
   transform: translateY(-8px);
   border-color: var(--primary-color);
@@ -688,11 +721,12 @@ nav ul li:hover{
   background-size: cover;
   background-position: center;
   position: relative;
-  transition: transform 0.4s ease;
+  transition: none; /* ZOOM DIHAPUS */
 }
 
+/* ZOOM DIHAPUS - TIDAK ADA TRANSFORM SCALE */
 .card-item:hover .card-image {
-  transform: scale(1.05);
+  transform: none;
 }
 
 .card-rating {
@@ -1006,7 +1040,7 @@ nav ul li:hover{
 
 /* ================= RESPONSIVE ================= */
 
-/* Tablet (1024px ke bawah) - TETAP 1 BARIS */
+/* Tablet (1024px ke bawah) */
 @media (max-width: 1024px) {
   .cards-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -1062,7 +1096,6 @@ nav ul li:hover{
     width: auto;
   }
   
-  /* TABLET - FILTER NAV TETAP 1 BARIS HORIZONTAL */
   .filter-nav {
     display: flex;
     flex-direction: row;
@@ -1075,7 +1108,6 @@ nav ul li:hover{
     padding: 8px 16px;
   }
   
-  /* TABLET - FILTER GRID TETAP 3 KOLOM */
   .filter-grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
@@ -1083,7 +1115,7 @@ nav ul li:hover{
   }
 }
 
-/* SMARTPHONE (768px ke bawah) - PER BARIS */
+/* SMARTPHONE (768px ke bawah) */
 @media (max-width: 768px) {
   .hamburger {
     display: flex;
@@ -1167,7 +1199,6 @@ nav ul li:hover{
     margin-top: 10px;
   }
   
-  /* ===== SMARTPHONE - FILTER NAVIGATION PER BARIS (VERTICAL) ===== */
   .filter-nav {
     display: flex;
     flex-direction: column;
@@ -1181,7 +1212,6 @@ nav ul li:hover{
     padding: 12px 16px;
   }
   
-  /* SMARTPHONE - FILTER GRID 1 KOLOM */
   .filter-grid {
     grid-template-columns: 1fr;
     gap: 15px;
@@ -1222,7 +1252,6 @@ nav ul li:hover{
     transform: translateX(5px);
   }
   
-  /* SORT CONTAINER - TANPA LABEL */
   .sort-container {
     display: flex;
     flex-direction: row;
@@ -1276,6 +1305,14 @@ nav ul li:hover{
   .modal-btn {
     width: 100%;
     justify-content: center;
+  }
+  
+  nav ul li.active::after {
+    bottom: -2px;
+  }
+  
+  nav ul li:hover::after {
+    bottom: -2px;
   }
 }
 
@@ -1389,7 +1426,7 @@ nav ul li:hover{
 </head>
 <body>
 
-<!-- NAVBAR -->
+<!-- NAVBAR DENGAN HYPERLINK DAN GARIS BAWAH - LIST ACTIVE -->
 <nav>
   <h2>AniGame</h2>
   <div class="hamburger" id="hamburger">
@@ -1398,10 +1435,10 @@ nav ul li:hover{
     <span></span>
   </div>
   <ul id="navMenu">
-    <li><a href="index.html" style="color: inherit; text-decoration: none;">Home</a></li>
-    <li class="active"><a href="#" style="color: inherit; text-decoration: none;">List</a></li>
-    <li>Add Review</li>
-    <li>Profile</li>
+    <li><a href="index.html">Home</a></li>
+    <li class="active"><a href="browse.html">List</a></li>
+    <li><a href="add-review.html">Add Review</a></li>
+    <li><a href="profile.html">Profile</a></li>
   </ul>
 </nav>
 
@@ -1589,6 +1626,16 @@ const modalClose = document.getElementById('modalClose');
 const modalBody = document.getElementById('modalBody');
 const hamburger = document.getElementById('hamburger');
 const navMenu = document.getElementById('navMenu');
+
+// SET ACTIVE MENU - LIST ACTIVE DENGAN GARIS BAWAH
+// Langsung set class active ke menu List karena ini halaman browse.html
+navMenu.querySelectorAll('li').forEach(li => {
+  li.classList.remove('active');
+  const link = li.querySelector('a');
+  if (link && link.getAttribute('href') === 'browse.html') {
+    li.classList.add('active');
+  }
+});
 
 hamburger.addEventListener('click', (e) => {
   e.stopPropagation();
