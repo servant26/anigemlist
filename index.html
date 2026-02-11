@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anigemlist</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{ 
+  --nav-h:70px;
+  --primary-color: #b57cff;
+  --primary-hover: #a366ff;
+  --active-bg: rgba(181, 124, 255, 0.2);
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  background:#111;
+  color:#fff;
+  overflow-x:hidden;
+}
+
+/* ================= NAVBAR (SEMPURNA DARI KODE SEBELUMNYA) ================= */
+nav{
+  position:sticky;
+  top:0;
+  width:100%;
+  padding:18px 8%;
+  background:#0f0f14;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:1000;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+  height: var(--nav-h);
+}
+
+nav h2{
+  font-weight:700;
+  font-size: 22px;
+  color: white;
+  letter-spacing: 0.5px;
+}
+
+nav ul{
+  list-style:none;
+  display:flex;
+  gap: 40px;
+}
+
+nav ul li{
+  cursor:pointer;
+  font-weight:500;
+  color:#aaa;
+  transition: all 0.3s ease;
+  font-size: 16px;
+  padding: 6px 0;
+  position: relative;
+}
+
+nav ul li.active{
+  color: var(--primary-color);
+}
+
+nav ul li.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--primary-color);
+  border-radius: 3px;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from { width: 0; opacity: 0; }
+  to { width: 100%; opacity: 1; }
+}
+
+nav ul li:hover{
+  color: var(--primary-color);
+}
+
+/* Hamburger Menu */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 4px;
+  z-index: 1001;
+}
+
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background-color: white;
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* ================= HERO ================= */
+.hero{
+  height:calc(100vh - var(--nav-h));
+  min-height:520px;
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  align-items:flex-start;
+  padding:90px 70px 0 70px;
+}
+
+.hero-bg{
+  position:absolute;
+  inset:0;
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  filter:blur(6px);
+  transform:scale(1.05);
+  transition:opacity .6s ease;
+  z-index:0;
+}
+
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    to bottom,
+    rgba(17,17,17,0) 45%,
+    rgba(17,17,17,.6) 75%,
+    rgba(17,17,17,.95) 100%
+  );
+  z-index:1;
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+  max-width:680px;
+  transition:opacity .6s ease, transform .6s ease;
+  margin-top: -18px;
+}
+
+.hero-content h1{
+  font-size:54px;
+  font-weight:800;
+  text-shadow:0 4px 12px rgba(0,0,0,.8);
+  color: white;
+}
+
+.hero-content p{
+  font-size:20px;
+  margin-bottom:6px;
+  font-weight:600;
+  text-shadow:0 3px 10px rgba(0,0,0,.8);
+  color: #eee;
+}
+
+/* ================= OVERLAY SECTION ================= */
+.overlay-section{
+  position:relative;
+  margin-top:-290px;
+  z-index:5;
+}
+
+/* ================= FILTER ================= */
+.filter-wrap{
+  padding:0 70px;
+  margin-bottom:30px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.filter-left{
+  display:flex;
+}
+
+.filter-btn{
+  border:none;
+  background:#222;
+  color:#fff;
+  padding:6px 26px;
+  margin-right:12px;
+  border-radius:8px;
+  transition: all 0.3s ease;
+  border: 2px solid #333;
+  font-weight: 500;
+}
+
+.filter-btn.active{
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color:#000;
+  font-weight:600;
+}
+
+.filter-btn.active:hover{
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+  color:#000;
+}
+
+.filter-btn:not(.active):hover{
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color:#fff;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(181, 124, 255, 0.3);
+}
+
+.see-all{
+  background:#222;
+  color:#fff;
+  padding:6px 20px;
+  border-radius:8px;
+  text-decoration:none;
+  transition: all 0.3s ease;
+  border: 2px solid #333;
+  font-weight: 500;
+}
+
+.see-all:hover{
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color:#fff;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(181, 124, 255, 0.3);
+}
+
+/* ================= SLIDER ================= */
+.slider{
+  display:flex;
+  gap:34px;
+  overflow-x:auto;
+  padding:0 70px 60px;
+}
+
+.slider::-webkit-scrollbar{display:none}
+
+/* ================= COVER ================= */
+.cover-skew{
+  width:160px;
+  transform:skewX(-6deg);
+  flex-shrink:0;
+  position:relative;
+}
+
+.cover-box{
+  width:160px;
+  height:230px;
+  border-radius:14px;
+  overflow:hidden;
+  background:#222;
+  position:relative;
+  transition: all 0.3s ease;
+  border: 2px solid transparent; /* Border transparan default */
+}
+
+/* Hover effect: border soft purple dengan transisi smooth */
+.cover-skew:hover .cover-box {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 20px rgba(181, 124, 255, 0.4);
+  transition: all 0.3s ease;
+}
+
+/* Gambar di dalam cover-box - TIDAK ZOOM IN */
+.cover-box .cover-image{
+  width:100%;
+  height:100%;
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  transition: none; /* Hapus transform */
+}
+
+/* Rating - WARNANYA DIGANTI SOFT PURPLE */
+.rating{
+  position:absolute;
+  bottom:10px;
+  right:10px;
+  background: var(--primary-color);
+  color:#000;
+  font-weight:700;
+  padding:4px 8px;
+  border-radius:5px;
+  font-size:14px;
+  z-index:2;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.cover-skew:hover .rating {
+  background: var(--primary-hover);
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+}
+
+.reflection{
+  width:160px;
+  height:190px;
+  margin-top:8px;
+  background-size:cover;
+  background-position:center;
+  border-radius:14px;
+  transform:scaleY(-1) translateX(-4px);
+  opacity:.35;
+  filter:blur(2px);
+  mask-image:linear-gradient(to bottom, rgba(0,0,0,.6), rgba(0,0,0,0));
+}
+
+/* ================= RESPONSIVE ================= */
+
+/* Tablet (768px - 1024px) */
+@media (max-width: 1024px) {
+  nav {
+    padding: 18px 5%;
+  }
+  
+  nav ul {
+    gap: 30px;
+  }
+  
+  .hero {
+    padding: 120px 5% 0 5%;
+    height: calc(85vh - var(--nav-h));
+    min-height: 520px;
+  }
+  
+  .hero-content {
+    margin-top: 0;
+  }
+  
+  .hero-content h1 {
+    font-size: 90px;
+    line-height: 1.1;
+  }
+  
+  .hero-content p {
+    font-size: 26px;
+    margin-bottom: 10px;
+  }
+  
+  .filter-wrap {
+    padding: 0 5%;
+  }
+  
+  .filter-btn {
+    padding: 10px 35px;
+    margin-right: 15px;
+    font-size: 18px;
+    border-radius: 10px;
+  }
+  
+  .see-all {
+    padding: 10px 30px;
+    font-size: 18px;
+    border-radius: 10px;
+  }
+  
+  .slider {
+    padding: 0 5% 70px;
+    gap: 50px;
+  }
+  
+  .overlay-section {
+    margin-top: -300px;
+  }
+  
+  .cover-skew {
+    width: 200px;
+  }
+  
+  .cover-box {
+    width: 250px;
+    height: 360px;
+  }
+  
+  .reflection {
+    width: 250px;
+    height: 290px;
+  }
+  
+  .rating {
+    font-size: 20px;
+    padding: 8px 14px;
+    bottom: 15px;
+    right: 15px;
+    border-radius: 8px;
+  }
+}
+
+/* Mobile Landscape & Tablet Kecil (max-width: 768px) */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+  
+  nav ul {
+    position: fixed;
+    top: var(--nav-h);
+    left: 0;
+    width: 100%;
+    background: #0f0f14;
+    flex-direction: column;
+    align-items: center;
+    padding: 25px 0;
+    gap: 25px;
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    z-index: 999;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  }
+  
+  nav ul.active {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  nav ul li {
+    font-size: 18px;
+    padding: 8px 0;
+  }
+  
+  nav {
+    padding: 15px 4%;
+  }
+  
+  nav h2 {
+    font-size: 22px;
+  }
+  
+  .hero {
+    padding: 110px 4% 0 4%;
+    height: calc(75vh - var(--nav-h));
+    min-height: 500px;
+  }
+  
+  .hero-content {
+    max-width: 90%;
+    margin-top: 0;
+  }
+  
+  .hero-content h1 {
+    font-size: 52px;
+    line-height: 1.1;
+  }
+  
+  .hero-content p {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+  
+  .filter-wrap {
+    padding: 0 4%;
+  }
+  
+  .filter-btn {
+    padding: 8px 30px;
+    margin-right: 12px;
+    font-size: 17px;
+  }
+  
+  .see-all {
+    padding: 8px 26px;
+    font-size: 17px;
+  }
+  
+  .slider {
+    padding: 0 4% 60px;
+    gap: 35px;
+  }
+  
+  .cover-skew {
+    width: 220px;
+  }
+  
+  .cover-box {
+    width: 220px;
+    height: 320px;
+  }
+  
+  .reflection {
+    width: 220px;
+    height: 260px;
+  }
+  
+  .rating {
+    font-size: 18px;
+    padding: 7px 12px;
+  }
+  
+  .overlay-section {
+    margin-top: -270px;
+  }
+}
+
+/* Mobile Portrait (max-width: 480px) */
+@media (max-width: 480px) {
+  nav {
+    padding: 12px 4%;
+  }
+  
+  nav h2 {
+    font-size: 20px;
+  }
+  
+  nav ul {
+    padding: 20px 0;
+    gap: 20px;
+  }
+  
+  nav ul li {
+    font-size: 17px;
+  }
+  
+  .hero {
+    padding: 90px 4% 0 4%;
+    height: calc(65vh - var(--nav-h));
+    min-height: 450px;
+  }
+  
+  .hero-content {
+    max-width: 95%;
+  }
+  
+  .hero-content h1 {
+    font-size: 35px;
+  }
+  
+  .hero-content p {
+    font-size: 14px;
+  }
+  
+  .filter-wrap {
+    padding: 0 4%;
+    flex-wrap: nowrap;
+    margin-top: 30px;
+  }
+  
+  .filter-left {
+    flex-wrap: nowrap;
+  }
+  
+  .filter-btn {
+    padding: 7px 26px;
+    margin-right: 10px;
+    font-size: 16px;
+  }
+  
+  .see-all {
+    padding: 7px 22px;
+    font-size: 16px;
+  }
+  
+  .slider {
+    padding: 0 4% 50px;
+    gap: 30px;
+  }
+  
+  .cover-skew {
+    width: 180px;
+  }
+  
+  .cover-box {
+    width: 180px;
+    height: 260px;
+  }
+  
+  .reflection {
+    width: 180px;
+    height: 210px;
+  }
+  
+  .rating {
+    font-size: 16px;
+    padding: 6px 10px;
+  }
+  
+  .overlay-section {
+    margin-top: -220px;
+  }
+}
+
+/* Mobile Kecil (max-width: 360px) */
+@media (max-width: 360px) {
+  nav {
+    padding: 10px 4%;
+  }
+  
+  nav h2 {
+    font-size: 18px;
+  }
+  
+  nav ul {
+    padding: 15px 0;
+    gap: 15px;
+  }
+  
+  nav ul li {
+    font-size: 16px;
+  }
+  
+  .hero {
+    padding: 80px 4% 0 4%;
+    min-height: 420px;
+  }
+  
+  .hero-content h1 {
+    font-size: 42px;
+  }
+  
+  .hero-content p {
+    font-size: 20px;
+  }
+  
+  .filter-btn {
+    padding: 6px 22px;
+    font-size: 15px;
+  }
+  
+  .see-all {
+    padding: 6px 20px;
+    font-size: 15px;
+  }
+  
+  .slider {
+    gap: 25px;
+  }
+  
+  .cover-skew {
+    width: 160px;
+  }
+  
+  .cover-box {
+    width: 160px;
+    height: 230px;
+  }
+  
+  .reflection {
+    width: 160px;
+    height: 190px;
+  }
+  
+  .rating {
+    font-size: 15px;
+  }
+}
+
+/* Scrollbar untuk mobile agar mudah scroll horizontal */
+.slider {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* Smooth transition untuk semua elemen */
+.hero-content, .cover-skew, nav ul, .filter-btn, .see-all, .cover-box, .rating {
+  transition: all 0.3s ease;
+}
+
+/* Active class untuk navbar */
+nav ul li.active {
+  color: var(--primary-color);
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR - SEMPURNA DARI KODE SEBELUMNYA -->
+<nav>
+  <h2>AniGame</h2>
+  <div class="hamburger" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <ul id="navMenu">
+    <li class="active">Home</li>
+    <li>List</li>
+    <li>Add Review</li>
+    <li>Profile</li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-content" id="heroContent">
+    <h1 id="title"></h1>
+    <p id="genre"></p>
+    <p id="studio"></p>
+  </div>
+</div>
+
+<div class="overlay-section">
+  <div class="filter-wrap">
+    <div class="filter-left">
+      <button class="filter-btn active" data-type="game">Game</button>
+      <button class="filter-btn" data-type="anime">Anime</button>
+    </div>
+    <a href="#" class="see-all">See All</a>
+  </div>
+
+  <div class="slider" id="slider"></div>
+</div>
+
+<script>
+const data={
+game:[
+{title:"The Last of Us",genre:"RPG",studio:"CD Projekt",rating:92,image:"https://pixelz.cc/wp-content/uploads/2018/06/the-last-of-us-ellie-and-joel-uhd-4k-wallpaper.jpg"},
+{title:"Grand Theft Auto 5",genre:"Action RPG",studio:"CD Projekt",rating:81,image:"https://images.wallpapersden.com/image/download/grand-theft-auto-v-gta-v-franklin-clinton_Zmhoa2iUmZqaraWkpJRnamtlrWZrZWU.jpg"},
+{title:"Red Dead Redemption 2",genre:"Action",studio:"Rockstar",rating:96,image:"https://pixelz.cc/wp-content/uploads/2018/06/red-dead-redemption-2-arthur-morgan-uhd-4k-wallpaper.jpg"},
+{title:"Cyberpunk",genre:"Action",studio:"Rockstar",rating:97,image:"https://images7.alphacoders.com/131/1317815.png"},
+{title:"Elden Ring",genre:"Souls",studio:"FromSoftware",rating:96,image:"https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/i/d96bb958-4e6c-4ce0-9447-fbe226fbbecf/df5ngtd-17026e84-6411-485a-9746-73a1643dc80a.jpg"},
+{title:"God of War",genre:"Action",studio:"Santa Monica",rating:94,image:"https://images3.alphacoders.com/843/843016.jpg"},
+{title:"Spiderman",genre:"Action",studio:"FromSoftware",rating:90,image:"https://c4.wallpaperflare.com/wallpaper/935/794/336/spider-man-spider-man-ps4-marvel-comics-wallpaper-preview.jpg"},
+{title:"Horizon Zero Dawn",genre:"RPG",studio:"Guerrilla",rating:89,image:"https://4kwallpapers.com/images/wallpapers/horizon-zero-dawn-3840x2160-19062.jpg"},
+{title:"Assassin's Creed Valhalla",genre:"RPG",studio:"Ubisoft",rating:84,image:"https://4kwallpapers.com/images/wallpapers/assassins-creed-valhalla-eivor-viking-raider-pc-games-2880x1800-546.jpg"},
+{title:"Resident Evil Requiem",genre:"Action",studio:"Sucker Punch",rating:93,image:"https://images5.alphacoders.com/139/1397346.jpg"}
+],
+anime:[
+{title:"Kimetsu no Yaiba",genre:"Action",studio:"MAPPA",rating:95,image:"https://4kwallpapers.com/images/walls/thumbs_2t/22988.jpg"},
+{title:"Jujutsu Kaisen",genre:"Action",studio:"Ufotable",rating:90,image:"https://4kwallpapers.com/images/wallpapers/jujutsu-kaisen-2560x1440-13907.jpg"},
+{title:"Uma Musume",genre:"Action",studio:"MAPPA",rating:89,image:"https://i0.wp.com/anitrendz.net/news/wp-content/uploads/2025/05/Umamusume-Cinderella-Gray-Cour-1-visual-1-e1746959877358.jpeg"},
+{title:"Solo Leveling",genre:"Action",studio:"Pierrot",rating:88,image:"https://images7.alphacoders.com/105/thumb-1920-1054068.png"},
+{title:"Boku no Hero",genre:"Adventure",studio:"Toei",rating:91,image:"https://4kwallpapers.com/images/walls/thumbs_2t/24190.jpg"},
+{title:"Shingeki no Kyojin",genre:"Action",studio:"Pierrot",rating:85,image:"https://wallpapercave.com/wp/wp14821679.jpg"},
+{title:"Chainsaw Man",genre:"Action",studio:"MAPPA",rating:88,image:"https://images3.alphacoders.com/139/1398852.jpg"},
+{title:"Takopi",genre:"Thriller",studio:"Madhouse",rating:92,image:"https://images5.alphacoders.com/139/1398454.jpg"},
+{title:"Kusuriya no Hitorigoto",genre:"Horror",studio:"Pierrot",rating:84,image:"https://4kwallpapers.com/images/walls/thumbs_2t/16212.jpg"},
+{title:"Re Zero",genre:"Fantasy",studio:"Bones",rating:94,image:"https://wallpapercave.com/wp/wp14100100.jpg"}
+]
+};
+
+const heroBg=document.getElementById("heroBg");
+const heroContent=document.getElementById("heroContent");
+const slider=document.getElementById("slider");
+const title=document.getElementById("title");
+const genre=document.getElementById("genre");
+const studio=document.getElementById("studio");
+const filterBtns=document.querySelectorAll(".filter-btn");
+const hamburger = document.getElementById("hamburger");
+const navMenu = document.getElementById("navMenu");
+
+let current="game";
+
+// Hamburger menu toggle
+hamburger.addEventListener("click", (e) => {
+  e.stopPropagation();
+  hamburger.classList.toggle("active");
+  navMenu.classList.toggle("active");
+});
+
+// Tutup menu saat klik di luar
+document.addEventListener("click", (e) => {
+  if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
+    hamburger.classList.remove("active");
+    navMenu.classList.remove("active");
+  }
+});
+
+// Tutup menu saat klik item menu
+navMenu.querySelectorAll("li").forEach(item => {
+  item.addEventListener("click", () => {
+    hamburger.classList.remove("active");
+    navMenu.classList.remove("active");
+    // Update active class
+    navMenu.querySelectorAll("li").forEach(li => li.classList.remove("active"));
+    item.classList.add("active");
+  });
+});
+
+function setHero(item){
+ heroBg.style.opacity=0;
+ heroContent.style.opacity=0;
+ heroContent.style.transform="translateY(20px)";
+ setTimeout(()=>{
+  heroBg.style.backgroundImage=`url('${item.image}')`;
+  title.innerText=item.title;
+  genre.innerText="Genre : "+item.genre;
+  studio.innerText="Studio : "+item.studio;
+  heroBg.style.opacity=1;
+  heroContent.style.opacity=1;
+  heroContent.style.transform="translateY(0)";
+ },300);
+}
+
+function render(){
+ slider.innerHTML="";
+ data[current].forEach(item=>{
+  const el=document.createElement("div");
+  el.className="cover-skew";
+  el.innerHTML=`
+   <div class="cover-box">
+    <div class="cover-image" style="background-image:url('${item.image}')"></div>
+    <div class="rating">★ ${item.rating}</div>
+   </div>
+   <div class="reflection" style="background-image:url('${item.image}')"></div>
+  `;
+  el.addEventListener("mouseenter",()=>setHero(item));
+  // Untuk touch devices
+  el.addEventListener("touchstart",()=>setHero(item));
+  slider.appendChild(el);
+ });
+ setHero(data[current][0]);
+}
+
+filterBtns.forEach(btn=>{
+ btn.onclick=()=>{
+  filterBtns.forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  current=btn.dataset.type;
+  render();
+ };
+});
+
+render();
+
+// Optimasi untuk touch scrolling di mobile
+if ('ontouchstart' in window) {
+  let isScrolling;
+  slider.addEventListener('touchmove', () => {
+    clearTimeout(isScrolling);
+    isScrolling = setTimeout(() => {}, 66);
+  }, false);
+}
+
+// Close menu on resize jika kembali ke desktop
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 768) {
+    hamburger.classList.remove("active");
+    navMenu.classList.remove("active");
+  }
+});
+</script>
+
+</body>
+</html>
