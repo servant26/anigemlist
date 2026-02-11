@@ -107,10 +107,6 @@ nav ul li:hover {
   color: var(--primary-color);
 }
 
-nav ul li:hover::after {
-  color: var(--primary-color);
-}
-
 .hamburger {
   display: none;
   flex-direction: column;
@@ -721,7 +717,7 @@ nav ul li:hover::after {
   background-size: cover;
   background-position: center;
   position: relative;
-  transition: none; /* ZOOM DIHAPUS */
+  transition: none;
 }
 
 /* ZOOM DIHAPUS - TIDAK ADA TRANSFORM SCALE */
@@ -1040,7 +1036,15 @@ nav ul li:hover::after {
 
 /* ================= RESPONSIVE ================= */
 
-/* Tablet (1024px ke bawah) */
+/* Desktop (1024px ke atas) - 5 card per baris */
+@media (min-width: 1025px) {
+  .cards-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 25px;
+  }
+}
+
+/* Tablet (1024px ke bawah) - 3 card per baris */
 @media (max-width: 1024px) {
   .cards-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -1049,7 +1053,7 @@ nav ul li:hover::after {
   
   .container {
     padding: 25px 15px;
-    max-width: 760px;
+    max-width: 750px;
   }
   
   .filter-menu {
@@ -1115,8 +1119,13 @@ nav ul li:hover::after {
   }
 }
 
-/* SMARTPHONE (768px ke bawah) */
+/* SMARTPHONE (768px ke bawah) - 3 card per baris */
 @media (max-width: 768px) {
+  .cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  
   .hamburger {
     display: flex;
   }
@@ -1144,11 +1153,6 @@ nav ul li:hover::after {
     transform: translateY(0);
     opacity: 1;
     visibility: visible;
-  }
-  
-  .cards-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
   }
   
   .filter-row {
@@ -1310,13 +1314,13 @@ nav ul li:hover::after {
   nav ul li.active::after {
     bottom: -2px;
   }
-  
-  nav ul li:hover::after {
-    bottom: -2px;
+
+  .container{
+    max-width: 730px;
   }
 }
 
-/* Mobile Portrait (480px ke bawah) */
+/* Mobile Portrait (480px ke bawah) - 2 card per baris */
 @media (max-width: 480px) {
   .cards-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -1388,10 +1392,11 @@ nav ul li:hover::after {
   }
 }
 
-/* Mobile Sangat Kecil (360px ke bawah) */
+/* Mobile Sangat Kecil (360px ke bawah) - 1 card per baris */
 @media (max-width: 360px) {
   .cards-grid {
     grid-template-columns: 1fr;
+    gap: 15px;
   }
   
   .pagination {
@@ -1551,41 +1556,41 @@ nav ul li:hover::after {
 </div>
 
 <script>
-const data = {
-  game: [
-    {id: 1, title: "The Last of Us Part I", genre: "RPG", studio: "Naughty Dog", rating: 92, year: 2022, image: "https://pixelz.cc/wp-content/uploads/2018/06/the-last-of-us-ellie-and-joel-uhd-4k-wallpaper.jpg", description: "A remastered version of the post-apocalyptic action-adventure game set in a world devastated by a fungal pandemic."},
-    {id: 2, title: "Grand Theft Auto V", genre: "Action RPG", studio: "Rockstar", rating: 81, year: 2013, image: "https://images.wallpapersden.com/image/download/grand-theft-auto-v-gta-v-franklin-clinton_Zmhoa2iUmZqaraWkpJRnamtlrWZrZWU.jpg", description: "An open-world action-adventure game set in the fictional state of San Andreas."},
-    {id: 3, title: "Red Dead Redemption 2", genre: "Action", studio: "Rockstar", rating: 96, year: 2018, image: "https://pixelz.cc/wp-content/uploads/2018/06/red-dead-redemption-2-arthur-morgan-uhd-4k-wallpaper.jpg", description: "An epic tale of life in America's unforgiving heartland at the dawn of the modern age."},
-    {id: 4, title: "Cyberpunk 2077", genre: "Action", studio: "CD Projekt Red", rating: 87, year: 2020, image: "https://images7.alphacoders.com/131/1317815.png", description: "An open-world, action-adventure RPG set in the megalopolis of Night City."},
-    {id: 5, title: "Elden Ring", genre: "Souls", studio: "FromSoftware", rating: 96, year: 2022, image: "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/i/d96bb958-4e6c-4ce0-9447-fbe226fbbecf/df5ngtd-17026e84-6411-485a-9746-73a1643dc80a.jpg", description: "A fantasy action-RPG adventure set within a world created by Hidetaka Miyazaki and George R. R. Martin."},
-    {id: 6, title: "God of War Ragnarök", genre: "Action", studio: "Santa Monica", rating: 94, year: 2022, image: "https://images3.alphacoders.com/843/843016.jpg", description: "Kratos and Atreus embark on a mythic journey to prevent Ragnarök in this sequel."},
-    {id: 7, title: "Marvel's Spider-Man 2", genre: "Action", studio: "Insomniac", rating: 90, year: 2023, image: "https://c4.wallpaperflare.com/wallpaper/935/794/336/spider-man-spider-man-ps4-marvel-comics-wallpaper-preview.jpg", description: "An action-adventure game based on the Marvel Comics superhero Spider-Man."},
-    {id: 8, title: "Horizon Forbidden West", genre: "RPG", studio: "Guerrilla", rating: 89, year: 2022, image: "https://4kwallpapers.com/images/wallpapers/horizon-zero-dawn-3840x2160-19062.jpg", description: "An action role-playing game set in a post-apocalyptic world overrun by robotic creatures."},
-    {id: 9, title: "Assassin's Creed Valhalla", genre: "RPG", studio: "Ubisoft", rating: 84, year: 2020, image: "https://4kwallpapers.com/images/wallpapers/assassins-creed-valhalla-eivor-viking-raider-pc-games-2880x1800-546.jpg", description: "An action role-playing video game set in the Viking Age."},
-    {id: 10, title: "Resident Evil 4 Remake", genre: "Action", studio: "Capcom", rating: 93, year: 2023, image: "https://images5.alphacoders.com/139/1397346.jpg", description: "A reimagining of the classic survival horror game set in a mysterious village."},
-    {id: 11, title: "The Witcher 3: Wild Hunt", genre: "RPG", studio: "CD Projekt", rating: 95, year: 2015, image: "https://images7.alphacoders.com/472/472250.jpg", description: "A story-driven open world RPG set in a dark fantasy universe."},
-    {id: 12, title: "Minecraft", genre: "Sandbox", studio: "Mojang", rating: 88, year: 2011, image: "https://images2.alphacoders.com/594/594443.jpg", description: "A sandbox video game that allows players to build with a variety of different blocks."},
-    {id: 13, title: "Fortnite", genre: "Battle Royale", studio: "Epic Games", rating: 85, year: 2017, image: "https://images5.alphacoders.com/908/908402.jpg", description: "A cooperative sandbox survival game and a last-man-standing battle royale game."},
-    {id: 14, title: "Call of Duty: Modern Warfare II", genre: "FPS", studio: "Infinity Ward", rating: 87, year: 2022, image: "https://images3.alphacoders.com/108/1087860.jpg", description: "A first-person shooter game and the sequel to Call of Duty: Modern Warfare."},
-    {id: 15, title: "Valorant", genre: "FPS", studio: "Riot Games", rating: 86, year: 2020, image: "https://images5.alphacoders.com/109/1096947.jpg", description: "A free-to-play first-person hero shooter developed and published by Riot Games."}
-  ],
-  anime: [
-    {id: 16, title: "Demon Slayer: Kimetsu no Yaiba", genre: "Action", studio: "Ufotable", rating: 95, year: 2019, image: "https://4kwallpapers.com/images/walls/thumbs_2t/22988.jpg", description: "A Japanese manga series about a young boy who becomes a demon slayer after his family is slaughtered."},
-    {id: 17, title: "Jujutsu Kaisen", genre: "Action", studio: "MAPPA", rating: 90, year: 2020, image: "https://4kwallpapers.com/images/wallpapers/jujutsu-kaisen-2560x1440-13907.jpg", description: "A Japanese manga series about a high school student who joins a secret organization of Jujutsu Sorcerers."},
-    {id: 18, title: "Uma Musume Pretty Derby", genre: "Sports", studio: "Cygames", rating: 89, year: 2018, image: "https://i0.wp.com/anitrendz.net/news/wp-content/uploads/2025/05/Umamusume-Cinderella-Gray-Cour-1-visual-1-e1746959877358.jpeg", description: "A Japanese media franchise about horse girls who compete in races."},
-    {id: 19, title: "Solo Leveling", genre: "Action", studio: "A-1 Pictures", rating: 88, year: 2023, image: "https://images7.alphacoders.com/105/thumb-1920-1054068.png", description: "A South Korean web novel adaptation about a weak hunter who gains the ability to level up."},
-    {id: 20, title: "My Hero Academia", genre: "Adventure", studio: "Bones", rating: 91, year: 2016, image: "https://4kwallpapers.com/images/walls/thumbs_2t/24190.jpg", description: "A Japanese manga series about a boy born without superpowers in a world where they are common."},
-    {id: 21, title: "Attack on Titan", genre: "Action", studio: "Wit Studio", rating: 95, year: 2013, image: "https://wallpapercave.com/wp/wp14821679.jpg", description: "A Japanese manga series set in a world where humanity lives in cities surrounded by enormous walls."},
-    {id: 22, title: "Chainsaw Man", genre: "Action", studio: "MAPPA", rating: 88, year: 2022, image: "https://images3.alphacoders.com/139/1398852.jpg", description: "A Japanese manga series about a young man who becomes a devil hunter after merging with his pet devil."},
-    {id: 23, title: "Takopi's Original Sin", genre: "Thriller", studio: "Madhouse", rating: 92, year: 2022, image: "https://images5.alphacoders.com/139/1398454.jpg", description: "A psychological thriller manga about a girl who receives a mysterious creature that can grant wishes."},
-    {id: 24, title: "The Apothecary Diaries", genre: "Historical", studio: "OLM", rating: 84, year: 2023, image: "https://4kwallpapers.com/images/walls/thumbs_2t/16212.jpg", description: "A Japanese manga series about a pharmacist who works in the imperial palace."},
-    {id: 25, title: "Re:Zero - Starting Life in Another World", genre: "Fantasy", studio: "White Fox", rating: 94, year: 2016, image: "https://wallpapercave.com/wp/wp14100100.jpg", description: "A Japanese light novel series about a boy who is transported to another world and gains the ability to return from death."},
-    {id: 26, title: "One Piece", genre: "Adventure", studio: "Toei Animation", rating: 96, year: 1999, image: "https://images2.alphacoders.com/602/602535.jpg", description: "A Japanese manga series about the adventures of Monkey D. Luffy and his pirate crew."},
-    {id: 27, title: "Naruto: Shippuden", genre: "Action", studio: "Pierrot", rating: 87, year: 2007, image: "https://images7.alphacoders.com/508/508096.jpg", description: "A Japanese manga series about a young ninja who seeks recognition from his peers."},
-    {id: 28, title: "Dragon Ball Super", genre: "Action", studio: "Toei Animation", rating: 90, year: 2015, image: "https://images6.alphacoders.com/320/320647.jpg", description: "A Japanese anime television series and the sequel to Dragon Ball Z."},
-    {id: 29, title: "Death Note", genre: "Thriller", studio: "Madhouse", rating: 93, year: 2006, image: "https://images8.alphacoders.com/413/413466.jpg", description: "A Japanese manga series about a high school student who discovers a supernatural notebook."},
-    {id: 30, title: "Fullmetal Alchemist: Brotherhood", genre: "Adventure", studio: "Bones", rating: 95, year: 2009, image: "https://images4.alphacoders.com/206/20660.jpg", description: "A Japanese manga series about two alchemist brothers who search for the Philosopher's Stone."}
-  ]
+const data={
+game:[
+{id:1, title:"The Last of Us", genre:"RPG", studio:"CD Projekt", rating:92, year:2022, image:"https://pixelz.cc/wp-content/uploads/2018/06/the-last-of-us-ellie-and-joel-uhd-4k-wallpaper.jpg", description:"A remastered version of the post-apocalyptic action-adventure game."},
+{id:2, title:"Grand Theft Auto 5", genre:"Action RPG", studio:"CD Projekt", rating:81, year:2013, image:"https://images.wallpapersden.com/image/download/grand-theft-auto-v-gta-v-franklin-clinton_Zmhoa2iUmZqaraWkpJRnamtlrWZrZWU.jpg", description:"An open-world action-adventure game set in the fictional state of San Andreas."},
+{id:3, title:"Red Dead Redemption 2", genre:"Action", studio:"Rockstar", rating:96, year:2018, image:"https://pixelz.cc/wp-content/uploads/2018/06/red-dead-redemption-2-arthur-morgan-uhd-4k-wallpaper.jpg", description:"An epic tale of life in America's unforgiving heartland."},
+{id:4, title:"Cyberpunk", genre:"Action", studio:"Rockstar", rating:97, year:2020, image:"https://images7.alphacoders.com/131/1317815.png", description:"An open-world, action-adventure RPG set in the megalopolis of Night City."},
+{id:5, title:"Elden Ring", genre:"Souls", studio:"FromSoftware", rating:96, year:2022, image:"https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/i/d96bb958-4e6c-4ce0-9447-fbe226fbbecf/df5ngtd-17026e84-6411-485a-9746-73a1643dc80a.jpg", description:"A fantasy action-RPG adventure set within a world created by Hidetaka Miyazaki."},
+{id:6, title:"God of War", genre:"Action", studio:"Santa Monica", rating:94, year:2022, image:"https://images3.alphacoders.com/843/843016.jpg", description:"Kratos and Atreus embark on a mythic journey to prevent Ragnarök."},
+{id:7, title:"Spiderman", genre:"Action", studio:"FromSoftware", rating:90, year:2023, image:"https://c4.wallpaperflare.com/wallpaper/935/794/336/spider-man-spider-man-ps4-marvel-comics-wallpaper-preview.jpg", description:"An action-adventure game based on the Marvel Comics superhero Spider-Man."},
+{id:8, title:"Horizon Zero Dawn", genre:"RPG", studio:"Guerrilla", rating:89, year:2022, image:"https://4kwallpapers.com/images/wallpapers/horizon-zero-dawn-3840x2160-19062.jpg", description:"An action role-playing game set in a post-apocalyptic world."},
+{id:9, title:"Assassin's Creed Valhalla", genre:"RPG", studio:"Ubisoft", rating:84, year:2020, image:"https://4kwallpapers.com/images/wallpapers/assassins-creed-valhalla-eivor-viking-raider-pc-games-2880x1800-546.jpg", description:"An action role-playing video game set in the Viking Age."},
+{id:10, title:"Resident Evil Requiem", genre:"Action", studio:"Sucker Punch", rating:93, year:2023, image:"https://images5.alphacoders.com/139/1397346.jpg", description:"A reimagining of the classic survival horror game."},
+{id:11, title:"The Witcher 3", genre:"RPG", studio:"CD Projekt", rating:95, year:2015, image:"https://images7.alphacoders.com/472/472250.jpg", description:"A story-driven open world RPG set in a dark fantasy universe."},
+{id:12, title:"Minecraft", genre:"Sandbox", studio:"Mojang", rating:88, year:2011, image:"https://images2.alphacoders.com/594/594443.jpg", description:"A sandbox video game that allows players to build with blocks."},
+{id:13, title:"Fortnite", genre:"Battle Royale", studio:"Epic Games", rating:85, year:2017, image:"https://images5.alphacoders.com/908/908402.jpg", description:"A cooperative sandbox survival game and battle royale game."},
+{id:14, title:"Call of Duty MWII", genre:"FPS", studio:"Infinity Ward", rating:87, year:2022, image:"https://images3.alphacoders.com/108/1087860.jpg", description:"A first-person shooter game and sequel to Modern Warfare."},
+{id:15, title:"Valorant", genre:"FPS", studio:"Riot Games", rating:86, year:2020, image:"https://images5.alphacoders.com/109/1096947.jpg", description:"A free-to-play first-person hero shooter."}
+],
+anime:[
+{id:16, title:"Kimetsu no Yaiba", genre:"Action", studio:"MAPPA", rating:95, year:2019, image:"https://4kwallpapers.com/images/walls/thumbs_2t/22988.jpg", description:"A young boy becomes a demon slayer after his family is slaughtered."},
+{id:17, title:"Jujutsu Kaisen", genre:"Action", studio:"Ufotable", rating:90, year:2020, image:"https://4kwallpapers.com/images/wallpapers/jujutsu-kaisen-2560x1440-13907.jpg", description:"A high school student joins a secret organization of Jujutsu Sorcerers."},
+{id:18, title:"Uma Musume", genre:"Sports", studio:"MAPPA", rating:89, year:2018, image:"https://i0.wp.com/anitrendz.net/news/wp-content/uploads/2025/05/Umamusume-Cinderella-Gray-Cour-1-visual-1-e1746959877358.jpeg", description:"Horse girls who compete in races."},
+{id:19, title:"Solo Leveling", genre:"Action", studio:"Pierrot", rating:88, year:2023, image:"https://images7.alphacoders.com/105/thumb-1920-1054068.png", description:"A weak hunter gains the ability to level up."},
+{id:20, title:"Boku no Hero", genre:"Adventure", studio:"Toei", rating:91, year:2016, image:"https://4kwallpapers.com/images/walls/thumbs_2t/24190.jpg", description:"A boy born without superpowers in a world where they are common."},
+{id:21, title:"Shingeki no Kyojin", genre:"Action", studio:"Pierrot", rating:85, year:2013, image:"https://wallpapercave.com/wp/wp14821679.jpg", description:"Humanity lives in cities surrounded by enormous walls."},
+{id:22, title:"Chainsaw Man", genre:"Action", studio:"MAPPA", rating:88, year:2022, image:"https://images3.alphacoders.com/139/1398852.jpg", description:"A young man merges with his pet devil to become a devil hunter."},
+{id:23, title:"Takopi", genre:"Thriller", studio:"Madhouse", rating:92, year:2022, image:"https://images5.alphacoders.com/139/1398454.jpg", description:"A mysterious creature that can grant wishes."},
+{id:24, title:"Kusuriya no Hitorigoto", genre:"Horror", studio:"Pierrot", rating:84, year:2023, image:"https://4kwallpapers.com/images/walls/thumbs_2t/16212.jpg", description:"A pharmacist who works in the imperial palace."},
+{id:25, title:"Re Zero", genre:"Fantasy", studio:"Bones", rating:94, year:2016, image:"https://wallpapercave.com/wp/wp14100100.jpg", description:"A boy transported to another world gains the ability to return from death."},
+{id:26, title:"One Piece", genre:"Adventure", studio:"Toei", rating:96, year:1999, image:"https://images2.alphacoders.com/602/602535.jpg", description:"Adventures of Monkey D. Luffy and his pirate crew."},
+{id:27, title:"Naruto Shippuden", genre:"Action", studio:"Pierrot", rating:87, year:2007, image:"https://images7.alphacoders.com/508/508096.jpg", description:"A young ninja who seeks recognition from his peers."},
+{id:28, title:"Dragon Ball Super", genre:"Action", studio:"Toei", rating:90, year:2015, image:"https://images6.alphacoders.com/320/320647.jpg", description:"Sequel to Dragon Ball Z."},
+{id:29, title:"Death Note", genre:"Thriller", studio:"Madhouse", rating:93, year:2006, image:"https://images8.alphacoders.com/413/413466.jpg", description:"A student discovers a supernatural notebook."},
+{id:30, title:"Fullmetal Alchemist", genre:"Adventure", studio:"Bones", rating:95, year:2009, image:"https://images4.alphacoders.com/206/20660.jpg", description:"Two alchemist brothers search for the Philosopher's Stone."}
+]
 };
 
 let currentType = 'game';
@@ -1598,7 +1603,22 @@ let currentFilters = {
   studio: []
 };
 let currentPage = 1;
-const itemsPerPage = 8;
+
+// ============= ITEMS PER PAGE RESPONSIF =============
+function getItemsPerPage() {
+  const width = window.innerWidth;
+  if (width > 1024) {
+    return 10; // Desktop - 5 card per baris x 2 baris = 10 data
+  } else if (width > 768) {
+    return 6;  // Tablet - 3 card per baris x 3 baris = 9 data
+  } else if (width > 480) {
+    return 6;  // Mobile Landscape - 3 card per baris x 2 baris = 6 data
+  } else {
+    return 6;  // Mobile Portrait - 2 card per baris x 3 baris = 6 data
+  }
+}
+
+let itemsPerPage = getItemsPerPage();
 
 const cardsGrid = document.getElementById('cardsGrid');
 const pagination = document.getElementById('pagination');
@@ -1628,7 +1648,6 @@ const hamburger = document.getElementById('hamburger');
 const navMenu = document.getElementById('navMenu');
 
 // SET ACTIVE MENU - LIST ACTIVE DENGAN GARIS BAWAH
-// Langsung set class active ke menu List karena ini halaman browse.html
 navMenu.querySelectorAll('li').forEach(li => {
   li.classList.remove('active');
   const link = li.querySelector('a');
@@ -2209,6 +2228,14 @@ window.addEventListener('resize', () => {
   if (window.innerWidth > 768) {
     hamburger.classList.remove('active');
     navMenu.classList.remove('active');
+  }
+  
+  // UPDATE ITEMS PER PAGE SAAT RESIZE
+  const newItemsPerPage = getItemsPerPage();
+  if (newItemsPerPage !== itemsPerPage) {
+    itemsPerPage = newItemsPerPage;
+    currentPage = 1;
+    renderCards();
   }
 });
 
