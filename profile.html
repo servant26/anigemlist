@@ -16,6 +16,8 @@
       --primary-color: #b57cff;
       --primary-hover: #a366ff;
       --primary-soft: rgba(181, 124, 255, 0.15);
+      --primary-glow: rgba(181, 124, 255, 0.3);
+      --primary-hover-glow: rgba(163, 102, 255, 0.4);
       --dark-bg: #0a0a0c;
       --card-bg: #141418;
       --border-color: #2c2c34;
@@ -164,7 +166,7 @@
       display: flex;
       align-items: center;
       gap: clamp(15px, 4vw, 30px);
-      flex-wrap: nowrap;      /* tidak boleh turun */
+      flex-wrap: nowrap;
     }
 
     .avatar {
@@ -186,7 +188,7 @@
 
     .profile-info {
       flex: 1;
-      min-width: 0;           /* biar bisa menyusut */
+      min-width: 0;
     }
 
     .profile-info h1 {
@@ -211,7 +213,7 @@
       text-overflow: ellipsis;
     }
 
-    /* ===== BADGE - BASE STYLE ===== */
+    /* ===== BADGE - DENGAN EFEK HOVER SOFT PURPLE 3D ===== */
     .profile-badges {
       display: flex;
       gap: clamp(10px, 2vw, 20px);
@@ -229,12 +231,15 @@
       gap: clamp(6px, 1.2vw, 12px);
       transition: all 0.3s ease;
       cursor: pointer;
-      flex: 0 1 auto;        /* desktop: tidak stretch */
+      flex: 0 1 auto;
     }
 
+    /* EFEK HOVER SOFT PURPLE 3D UNTUK BADGE */
     .badge-item:hover {
       background: var(--primary-color);
       border-color: var(--primary-color);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px var(--primary-glow);
     }
 
     .badge-item:hover i,
@@ -273,7 +278,7 @@
       white-space: nowrap;
     }
 
-    /* ===== STATS CONTROL ===== */
+    /* ===== STATS CONTROL - DENGAN EFEK HOVER ===== */
     .stats-controls {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
@@ -325,7 +330,7 @@
       padding: clamp(8px, 1.5vw, 12px) clamp(8px, 2vw, 20px);
       border-radius: 12px;
       font-size: var(--fs-sm);
-      transition: all 0.2s ease;
+      transition: all 0.3s ease;
       display: flex;
       align-items: center;
       gap: 6px;
@@ -335,21 +340,36 @@
     }
 
     .category-btn i { font-size: var(--fs-md); }
+    
     .category-btn.active {
       background: var(--primary-color);
       border-color: var(--primary-color);
       color: white;
     }
-    .category-btn:hover {
+
+    /* EFEK HOVER UNTUK CATEGORY BUTTON ACTIVE - MENGGELAP, NAIK, GLOW */
+    .category-btn.active:hover {
+      background: var(--primary-hover);
+      border-color: var(--primary-hover);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px var(--primary-hover-glow);
+    }
+
+    /* EFEK HOVER UNTUK CATEGORY BUTTON NON-ACTIVE - SOFT PURPLE, NAIK, GLOW */
+    .category-btn:hover:not(.active) {
       background: var(--primary-color);
       border-color: var(--primary-color);
       color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px var(--primary-glow);
     }
 
-    /* ===== DROPDOWN ===== */
+    /* ===== DROPDOWN - DENGAN EFEK HOVER ===== */
     .custom-dropdown {
       width: 100%;
     }
+    
     .custom-dropdown .btn {
       width: 100%;
       background: #0a0a0c;
@@ -362,23 +382,34 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      transition: all 0.2s ease;
+      transition: all 0.3s ease;
       text-align: left;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
+
+    /* EFEK HOVER UNTUK DROPDOWN BUTTON - SOFT PURPLE, NAIK, GLOW */
+    .custom-dropdown .btn:hover {
+      background: var(--primary-color);
+      border-color: var(--primary-color);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px var(--primary-glow);
+    }
+
     .custom-dropdown .btn span {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-    .custom-dropdown .btn:hover,
+
     .custom-dropdown .btn:focus {
       background: #15151c;
       border-color: var(--primary-color);
       box-shadow: none;
     }
+
     .custom-dropdown .btn::after {
       content: "\f078";
       font-family: "Font Awesome 6 Free";
@@ -388,7 +419,14 @@
       color: var(--primary-color);
       font-size: var(--fs-xs);
       flex-shrink: 0;
+      transition: all 0.3s ease;
     }
+
+    /* ICON DROPDOWN JUGA BERUBAH WARNA SAAT HOVER */
+    .custom-dropdown .btn:hover::after {
+      color: white;
+    }
+
     .custom-dropdown .dropdown-menu {
       width: 100%;
       min-width: 100%;
@@ -402,6 +440,7 @@
       max-height: 300px;
       overflow-y: auto;
     }
+
     .custom-dropdown .dropdown-item {
       color: white;
       border-radius: 10px;
@@ -415,23 +454,31 @@
       white-space: normal;
       word-break: break-word;
     }
+
     .custom-dropdown .dropdown-item i {
       width: 20px;
       color: var(--primary-color);
       flex-shrink: 0;
+      transition: all 0.15s;
     }
+
     .custom-dropdown .dropdown-item:hover {
       background: var(--primary-color);
       color: white;
+      transform: translateX(5px);
     }
-    .custom-dropdown .dropdown-item:hover i { color: white; }
+
+    .custom-dropdown .dropdown-item:hover i { 
+      color: white; 
+    }
+
     .custom-dropdown .dropdown-item.active {
       background: rgba(181,124,255,0.2);
       color: var(--primary-color);
       font-weight: 600;
     }
 
-    /* ===== CHART ===== */
+    /* ===== CHART - TANPA EFEK HOVER ===== */
     .chart-container {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
@@ -440,6 +487,7 @@
       margin-bottom: clamp(20px, 3vw, 30px);
       box-shadow: 0 16px 32px rgba(0,0,0,0.4);
     }
+
     .chart-wrapper {
       position: relative;
       height: clamp(250px, 50vw, 350px);
@@ -447,7 +495,7 @@
     }
     canvas { max-width: 100%; height: auto !important; }
 
-    /* ===== CONCLUSION ===== */
+    /* ===== CONCLUSION - TANPA EFEK HOVER ===== */
     .conclusion-card {
       background: linear-gradient(145deg, rgba(181,124,255,0.08), rgba(20,20,28,0.9));
       border: 1px solid rgba(181,124,255,0.5);
@@ -456,12 +504,14 @@
       margin-top: 20px;
       backdrop-filter: blur(8px);
     }
+
     .conclusion-card i {
       color: var(--primary-color);
       font-size: clamp(24px, 5vw, 28px);
       margin-right: 15px;
       flex-shrink: 0;
     }
+
     .conclusion-text {
       font-size: var(--fs-md);
       line-height: 1.6;
@@ -469,6 +519,7 @@
       font-weight: 500;
       word-break: break-word;
     }
+    
     .conclusion-text span {
       color: var(--primary-color);
       font-weight: 700;
@@ -486,7 +537,7 @@
         gap: 12px;
       }
       .badge-item {
-        width: 100%;          /* maksimalkan lebar */
+        width: 100%;
         padding: 12px 16px;
       }
       .badge-item:nth-child(1),
@@ -740,7 +791,7 @@
       </div>
     </div>
 
-    <!-- BARIS 2 & 3: Semua Badge (diatur via CSS) -->
+    <!-- BARIS 2 & 3: Semua Badge dengan efek hover 3D soft purple -->
     <div class="profile-badges">
       <div class="badge-item">
         <i class="fas fa-gamepad"></i>
@@ -766,7 +817,7 @@
     </div>
   </div>
 
-  <!-- STATS CONTROLS -->
+  <!-- STATS CONTROLS dengan efek hover 3D -->
   <div class="stats-controls">
     <div class="control-group">
       <label><i class="fas fa-tag"></i> TYPE</label>
@@ -792,21 +843,21 @@
       <label><i class="fas fa-filter"></i> KRITERIA</label>
       <div class="custom-dropdown dropdown">
         <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="criteriaDropdownBtn">
-          <span><i class="fas fa-filter me-2" style="color: #b57cff;"></i> Platform</span>
+          <span><i class="fa-solid fa-computer me-2" style="color: #b57cff;"></i> Platform</span>
         </button>
         <ul class="dropdown-menu" id="criteriaDropdownMenu"></ul>
       </div>
     </div>
   </div>
 
-  <!-- CHART -->
+  <!-- CHART - TANPA EFEK HOVER -->
   <div class="chart-container">
     <div class="chart-wrapper">
       <canvas id="statsChart"></canvas>
     </div>
   </div>
 
-  <!-- CONCLUSION -->
+  <!-- CONCLUSION - TANPA EFEK HOVER -->
   <div class="conclusion-card">
     <div class="d-flex align-items-center">
       <i class="fas fa-quote-left"></i>
@@ -814,7 +865,7 @@
     </div>
   </div>
 </div>
-
+<br>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
