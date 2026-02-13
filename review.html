@@ -16,6 +16,7 @@
   --primary-hover: #a366ff;
   --primary-soft: rgba(181, 124, 255, 0.15);
   --primary-glow: rgba(181, 124, 255, 0.3);
+  --primary-hover-glow: rgba(163, 102, 255, 0.4);
   --dark-bg: #0a0a0c;
   --card-bg: #141418;
   --border-color: #2c2c34;
@@ -189,9 +190,22 @@ nav ul li:hover {
   color: #000;
 }
 
+/* EFEK HOVER UNTUK BUTTON ACTIVE - MENGGELAP, NAIK, GLOW */
+.type-btn.active:hover {
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+  color: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px var(--primary-hover-glow);
+}
+
+/* EFEK HOVER UNTUK BUTTON NON-ACTIVE - SOFT PURPLE, NAIK, GLOW */
 .type-btn:hover:not(.active) {
+  background: var(--primary-color);
   border-color: var(--primary-color);
   color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px var(--primary-glow);
 }
 
 /* ===== REVIEW CONTAINER ===== */
@@ -550,10 +564,11 @@ nav ul li:hover {
   color: black;
 }
 
+/* EFEK HOVER UNTUK BUTTON ADD REVIEW - MENGGELAP, NAIK, GLOW */
 .btn-primary:hover {
   background: var(--primary-hover);
   transform: translateY(-2px);
-  box-shadow: 0 5px 20px var(--primary-glow);
+  box-shadow: 0 5px 20px var(--primary-hover-glow);
 }
 
 /* ===== RESPONSIVE ===== */
@@ -628,8 +643,6 @@ nav ul li:hover {
   .rating-container {
     height: 50px;
   }
-
-
 }
 </style>
 </head>
@@ -646,7 +659,7 @@ nav ul li:hover {
   <ul id="navMenu">
     <li><a href="index.html">Home</a></li>
     <li><a href="list.html">List</a></li>
-    <li  class="active"><a href="add-review.html">Add Review</a></li>
+    <li class="active"><a href="add-review.html">Add Review</a></li>
     <li><a href="profile.html">Profile</a></li>
   </ul>
 </nav>
@@ -897,4 +910,4 @@ nav ul li:hover {
 </script>
 
 </body>
-</html> 
+</html>

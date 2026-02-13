@@ -227,10 +227,13 @@ nav ul li:hover{
   font-weight:600;
 }
 
-.filter-btn.active:hover{
+/* INI YANG DIMINTA - HOVER UNTUK BUTTON ACTIVE: MENGGELAP, NAIK, GLOW */
+.filter-btn.active:hover {
   background: var(--primary-hover);
   border-color: var(--primary-hover);
-  color:#000;
+  color: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(163, 102, 255, 0.4);
 }
 
 .filter-btn:not(.active):hover{

@@ -11,6 +11,7 @@
 :root{ 
   --nav-h:70px;
   --primary-color: #b57cff;
+  --primary-hover: #a366ff; /* UNGU LEBIH GELAP UNTUK HOVER */
   --accent-color: #b57cff;
   --hover-color: #a366ff;
   --active-bg: rgba(181, 124, 255, 0.2);
@@ -101,6 +102,11 @@ nav ul li.active::after {
 @keyframes slideIn {
   from { width: 0; opacity: 0; }
   to { width: 100%; opacity: 1; }
+}
+
+/* HOVER UNTUK MENU ACTIVE - MENGGELAP SEPERTI REFERENSI */
+nav ul li.active:hover {
+  color: var(--primary-hover); /* UNGU LEBIH GELAP */
 }
 
 nav ul li:hover {
@@ -230,6 +236,15 @@ nav ul li:hover {
   font-weight: 600;
 }
 
+/* HOVER UNTUK TYPE TAB ACTIVE - MENGGELAP SEPERTI REFERENSI */
+.type-tab.active:hover {
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+  color: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(163, 102, 255, 0.4);
+}
+
 .type-tab:hover:not(.active) {
   background: var(--accent-color);
   border-color: var(--accent-color);
@@ -342,13 +357,20 @@ nav ul li:hover {
   transition: all 0.3s ease;
 }
 
-.filter-nav-btn:hover {
+.filter-nav-btn.active {
   background: var(--primary-color);
   border-color: var(--primary-color);
   color: white;
 }
 
-.filter-nav-btn.active {
+/* HOVER UNTUK FILTER NAV BTN ACTIVE - MENGGELAP SEPERTI REFERENSI */
+.filter-nav-btn.active:hover {
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+  color: white;
+}
+
+.filter-nav-btn:hover {
   background: var(--primary-color);
   border-color: var(--primary-color);
   color: white;
@@ -720,11 +742,6 @@ nav ul li:hover {
   transition: none;
 }
 
-/* ZOOM DIHAPUS - TIDAK ADA TRANSFORM SCALE */
-.card-item:hover .card-image {
-  transform: none;
-}
-
 .card-rating {
   position: absolute;
   top: 15px;
@@ -739,8 +756,9 @@ nav ul li:hover {
 }
 
 .card-item:hover .card-rating {
+  background: var(--primary-hover);
   transform: scale(1.1);
-  box-shadow: 0 0 15px rgba(181, 124, 255, 0.5);
+  box-shadow: 0 0 15px rgba(163, 102, 255, 0.5);
 }
 
 .card-content {
@@ -759,7 +777,7 @@ nav ul li:hover {
 }
 
 .card-item:hover .card-content h3 {
-  color: var(--primary-color);
+  color: var(--primary-hover);
 }
 
 .card-details {
@@ -777,7 +795,7 @@ nav ul li:hover {
 }
 
 .card-details i {
-  color: var(--primary-color);
+  color: var(--primary-hover);
   width: 18px;
   transition: transform 0.3s ease;
 }
@@ -799,7 +817,7 @@ nav ul li:hover {
 }
 
 .card-item:hover .card-year {
-  background: var(--primary-color);
+  background: var(--primary-hover);
   color: white;
   transform: translateY(-2px);
 }
@@ -828,6 +846,15 @@ nav ul li:hover {
   border-color: var(--accent-color);
   color: #000;
   font-weight: 600;
+}
+
+/* HOVER UNTUK PAGE BTN ACTIVE - MENGGELAP SEPERTI REFERENSI */
+.page-btn.active:hover {
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+  color: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(163, 102, 255, 0.4);
 }
 
 .page-btn:hover:not(.active):not(:disabled) {
@@ -910,7 +937,7 @@ nav ul li:hover {
 }
 
 .modal-close:hover {
-  background: var(--primary-color);
+  background: var(--primary-hover);
   transform: rotate(90deg);
 }
 
@@ -1007,9 +1034,9 @@ nav ul li:hover {
 }
 
 .back-btn:hover {
-  background: var(--primary-color);
+  background: var(--primary-hover);
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(181, 124, 255, 0.3);
+  box-shadow: 0 5px 15px rgba(163, 102, 255, 0.4);
 }
 
 .edit-btn {
@@ -1053,7 +1080,7 @@ nav ul li:hover {
   
   .container {
     padding: 25px 15px;
-    max-width: 750px;
+    max-width: 950px;
   }
   
   .filter-menu {
